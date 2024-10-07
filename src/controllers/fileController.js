@@ -164,7 +164,7 @@ exports.getFiles = async (req, res) => {
 exports.deleteFile = async (req, res) => {
     try {
         const file = await File.findById(req.params.id);
-        await s3Service.deleteFileFromS3(file.name);
+        // await s3Service.deleteFileFromS3(file.name);
         await File.deleteOne({ _id: req.params.id });
         res.status(200).json({ message: 'File deleted successfully' });
     } catch (err) {
