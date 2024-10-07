@@ -1,11 +1,50 @@
-const app=require("./src/app");
-const doteEnv=require("dotenv");
-doteEnv.config();
+const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
+const http = require('http');
+const cors = require('cors');
 
-require("./dbconnection/index")
+const authRoutes = require('./src/routes/authRoutes');
+const fileRoutes = require('./src/routes/fileRoutes');
+const folderRoutes = require('./src/routes/folderRoutes');
+const { setupSockets } = require('./src/services/socketService');
+require('dotenv').config();
+require('./config/passport');
 
-const PORT=process.env.PORT;
+const app = express();
+const server = http.createServer(app);
 
-app.listen(PORT,()=>{
-    console.log("server start on port "+PORT);
-})
+app.use(express.json());
+
+app.use(cors({
+  origin: 'http://localhost:8080',
+  credentials: true,
+}));
+
+setupSockets(server);
+ 
+app.use(session({
+  secret: "secret",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: false,
+    secure: false,
+  }
+
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use('/auth', authRoutes);
+app.use('/files', fileRoutes);
+app.use('/folders', folderRoutes);
+
+
+require("./dbconnection/index");
+
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
