@@ -10,6 +10,7 @@ exports.googleLogin = passport.authenticate('google', {
 // @route   GET /auth/google/callback
 exports.googleCallback = (req, res, next) => {
   passport.authenticate('google', { failureRedirect: '/' }, async (err, user) => {
+    
     if (err) {
       return next(err);
     }
