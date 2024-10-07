@@ -2,17 +2,17 @@ const { S3, PutObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s
 require('dotenv').config();
 
 const s3 = new S3({
-    region: "us-west-1",
+    region: process.env.AWSREGION,
     endpoint: `https://s3.us-west-1.amazonaws.com`,
     credentials: {
-        accessKeyId: "AKIA5W2ZVTSGM4JQPXGJ",
-        secretAccessKey: "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",
+        accessKeyId: process.env.AWSKEY,
+        secretAccessKey: process.env.AWSSECRET,
     }
 });
 
 exports.uploadFileToS3 = async (file) => {
     const params = {
-        Bucket: 'demo-bucket-foyr',
+        Bucket: process.env.AWSBUCKET,
         Key: file.originalname,
         Body: file.buffer,
         ContentType: file.mimetype,
@@ -32,7 +32,7 @@ exports.uploadFileToS3 = async (file) => {
 
 exports.deleteFileFromS3 = async (fileKey) => {
     const params = {
-        Bucket: process.env.AWS_BUCKET_NAME,
+        Bucket: process.env.AWSBUCKET,
         Key: fileKey, 
     };
 
