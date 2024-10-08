@@ -22,11 +22,6 @@ exports.googleCallback = (req, res, next) => {
       }
 
       res.redirect('https://foyr-frontend.vercel.app/dashboard');
-      res.status(200).json({
-        user,
-        isAuthenticated: true,
-        message: 'User successfully authenticated'
-      });
     });
   })(req, res, next);
 };
