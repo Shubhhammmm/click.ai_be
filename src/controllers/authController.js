@@ -1,4 +1,5 @@
 const passport = require('passport');
+const User = require('../models/user');
 
 
 exports.googleLogin = passport.authenticate('google', {
@@ -21,7 +22,7 @@ exports.googleCallback = (req, res, next) => {
         return next(loginErr);
       }
 
-      res.redirect('https://foyr-frontend.vercel.app/dashboard');
+      res.redirect('https://foyr-frontend.vercel.app');
     });
   })(req, res, next);
 };
@@ -42,3 +43,57 @@ exports.getSession = (req, res) => {
     res.json({ isAuthenticated: false });
   }
 };
+exports.userLogin = async(req, res) => {
+ try{
+   const {email,password}=req.body;
+  let user = await User.findOne({ email:email });
+    if (!user) {
+      res.status(404).json({message:"User Not Found"});
+    }
+    else{
+      if(!user.password){
+        const val= await User.findOneAndUpdate(
+          { email:email },
+          { $set: { password: password } },
+          { new: true }
+        );
+        res.status(200).json({message:"Login Success",user:val});
+      }
+      else{
+        res.status(200).json({message:"Login Success",user});
+      }
+    }
+  }
+  catch(error){
+    console.log(error.message)
+    res.status(500).json({message:error.message});
+
+ }
+};
+
+exports.userRegister = async(req, res) => {
+ try{
+   const {email,password,Name}=req.body;
+  let user = await User.findOne({ email:email });
+  if (!user) {
+    if(!password){
+      res.status(404).json({message:"Password is required"});
+      return;
+    }
+    const newuser = await User.create({
+      Name:Name,
+      email: email,
+      password:password,
+    });
+      res.status(200).json({message:"Register Success",user:newuser});
+    }
+    else{
+      res.status(404).json({message:"User Already Exist"});
+    }
+  }
+  catch(error){
+    res.status(500).json({message:error.message});
+ }
+};
+
+
