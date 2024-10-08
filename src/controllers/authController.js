@@ -60,7 +60,12 @@ exports.userLogin = async(req, res) => {
         res.status(200).json({message:"Login Success",user:val});
       }
       else{
-        res.status(200).json({message:"Login Success",user});
+        if(user.password==password){
+          res.status(200).json({message:"Login Success",user});
+        }
+        else{
+          res.status(404).json({message:"Password is Incorrect"});
+        }
       }
     }
   }
