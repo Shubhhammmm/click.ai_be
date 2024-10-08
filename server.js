@@ -17,7 +17,7 @@ const server = http.createServer(app);
 app.use(express.json());
 
 app.use(cors({
-  origin: 'http://localhost:8080',
+  origin: 'https://foyr-frontend.vercel.app',
   credentials: true,
 }));
 
