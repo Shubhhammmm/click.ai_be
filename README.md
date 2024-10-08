@@ -35,5 +35,8 @@ Foyr is a web application designed to facilitate the file management and collabo
 - **Database:** MongoDB
 - **Authentication:** Passport.js
 
+## Project Access Link
+- **Hosted Url:**  https://foyr-frontend.vercel.app
+
 ## Target Audience
 Foyr primarily targets individuals and teams who require an efficient solution for file management and collaboration, whether for personal use or within a professional context.
