@@ -21,7 +21,7 @@ exports.googleCallback = (req, res, next) => {
         return next(loginErr);
       }
 
-      res.redirect('https://foyr-backend.vercel.app/dashboard');
+      res.redirect('https://foyr-frontend.vercel.app/dashboard');
     });
   })(req, res, next);
 };
