@@ -14,7 +14,7 @@ exports.setupSockets = (server) => {
 
   io.on('connection', (socket) => {
     console.log('User connected');
-
+    socket.emit('connected', { message: 'Socket connection established successfully!' });
     socket.on("upload-progress-file", (data) => {
           socket.broadcast.emit("upload-progress-file", data);
     });
