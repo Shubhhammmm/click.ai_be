@@ -42,6 +42,10 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 app.use('/files', fileRoutes);
 app.use('/folders', folderRoutes);
+app.use('/',(req,res) =>{
+  res.send('<h1> Welcome to click.ai backend,you can use auth/google</h1>'); 
+
+})
 
 
 require("./dbconnection/index");

@@ -6,7 +6,7 @@ const User = require('../src/models/user');
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLEID,
   clientSecret: process.env.GOOGLESECRET,
-  callbackURL: 'backendurl/auth/google/callback'
+  callbackURL: 'https://click-ai-be.onrender.com/auth/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     // Find or create a user in your database
