@@ -6,7 +6,7 @@ const User = require('../src/models/user');
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLEID,
   clientSecret: process.env.GOOGLESECRET,
-  callbackURL: 'https://foyr-backend.vercel.app/auth/google/callback'
+  callbackURL: 'backendurl/auth/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     // Find or create a user in your database

@@ -22,7 +22,7 @@ exports.googleCallback = (req, res, next) => {
         return next(loginErr);
       }
 
-      res.redirect('https://foyr-frontend.vercel.app');
+      res.redirect('https://click-ai-fe.vercel.app');
     });
   })(req, res, next);
 };

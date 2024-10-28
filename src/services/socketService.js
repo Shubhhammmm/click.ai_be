@@ -5,7 +5,7 @@ let io;
 exports.setupSockets = (server) => {
   io = socketIo(server,{
     cors: {
-      origin: "https://foyr-frontend.vercel.app",
+      origin: "https://click-ai-fe.vercel.app",
       methods: ["GET", "POST"],
       credentials: true,
     },
